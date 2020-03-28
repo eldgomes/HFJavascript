@@ -5,6 +5,7 @@ function makeTimer(doneMessage, n) {
         },
         n
     );
+    doneMessage = "OUCH!";
 }
 
 makeTimer("Cookies are done!", 1000);
