@@ -1,25 +1,26 @@
-/*
-JS runs 2 passes at the code
-1st pass stacks function declarations only, ignores rest of the code
-2nd pass starts executing line by line
-since fly() on line 12 is not yet defined from the first pass, it throws error
-*/
-
 var migrating = true;
 
-if (migrating) {
-    quack(4);
-    fly(4);
-}
-
 var fly = function(num) {
+    var sound = "Flying";
+    function wingFlapper() {
+        console.log(sound);
+    }
     for (var i = 0; i < num; i++) {
-        console.log("Flying!");
+        wingFlapper();
     }
 };
 
 function quack(num) {
+    var sound = "Quack";
+    var quacker = function() {
+        console.log(sound);
+    };
     for (var i = 0; i < num; i++) {
-        console.log("Quack!");
+        quacker();
     }
+}
+
+if (migrating) {
+    quack(4);
+    fly(4);
 }
