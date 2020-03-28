@@ -1,3 +1,9 @@
+/*
+local variables are stored in an environment
+when inner is return it has environment attached to it
+thus it retain the value of local variable
+*/
+
 var justAVar = "Oh, don't you worry about it, I'm GLOBAL";
 
 function whereAreYou() {
@@ -6,9 +12,10 @@ function whereAreYou() {
     function inner() {
         return justAVar;
     }
-    
-    return inner();
+
+    return inner;
 }
 
-var result = whereAreYou();
+var innerFunction = whereAreYou();
+var result = innerFunction();
 console.log(result);
