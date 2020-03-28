@@ -1,49 +1,58 @@
-var passengers = [ { name: "Jane Doloop", paid: true },
-    { name: "Dr. Evel", paid: true },
-    { name: "Sue Property", paid: false },
-    { name: "John Funcall", paid: true } 
-];
+var passengers = [ { name: "Jane Doloop", paid: true, ticket: "coach" },
+ { name: "Dr. Evel", paid: true, ticket: "firstclass" },
+ { name: "Sue Property", paid: false, ticket: "firstclass" },
+ { name: "John Funcall", paid: true, ticket: "coach" } 
+]; 
 
-// function that processes passesngers with other funcions 
-function processPassengers(passengers, testFunction) {
-    for (var i = 0; i < passengers.length; i++) {
-        if (testFunction(passengers[i])) {
-            return false;
-        }
-    }
-    return true;
+/* function serveCustomer(passenger) {
+    createDrinkOrder(passenger);
+    // get dinner order
+    createDrinkOrder(passenger);
+    createDrinkOrder(passenger);
+    // show movie
+    createDrinkOrder(passenger);
+    // pick up trash
+} */
+
+function serveCustomer(passenger) {
+    var getDrinkOrderFunction = createDrinkOrder(passenger);
+    getDrinkOrderFunction();
+    // get dinner order
+    getDrinkOrderFunction();
+    getDrinkOrderFunction();
+    // show movie
+    getDrinkOrderFunction();
+    // pick up trash
 }
 
-/************other functions**********/
-function checkNoFlyList(passenger) {
-    return (passenger.name === "Dr. Evel");
-}
 
-function checkNotPaid(passenger) {
-    return (!passenger.paid);
-}
-
-function printPassenger(passenger) {
-    var message = passenger.name;
-    if (passenger.paid === true) {
-        message = message + " has paid";
+/* function createDrinkOrder(passenger) {
+    if (passenger.ticket === "firstclass") {
+        alert("Would you like a cocktail or wine?");
     } else {
-        message = message + " has not paid";
+        alert("Your choice is cola or water.");
     }
-    console.log(message);
-    return false;
-}   
-/************other functions**********/
+} */
+
+function createDrinkOrder(passenger) {
+    var orderFunction;
+    if (passenger.ticket === "firstclass") {
+        orderFunction = function() {
+            alert("Would you like a cocktail or wine?");
+        };
+    } else {
+        orderFunction = function() {
+            alert("Your choice is cola or water.");
+        };
+    }
+    return orderFunction;
+}
 
 // invocation
-var allCanFly = processPassengers(passengers, checkNoFlyList);
-if (!allCanFly) {
-    console.log("The plane can't take off: we have a passenger on the no-fly-list.");
+function servePassengers(passengers) {
+    for (var i = 0; i < passengers.length; i++) {
+        serveCustomer(passengers[i]);
+    }
 }
 
-var allPaid = processPassengers(passengers, checkNotPaid);
-if (!allPaid) {
-    console.log("The plane can't take off: not everyone has paid.");
-}
-
-processPassengers(passengers, printPassenger);
+servePassengers(passengers);
