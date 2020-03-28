@@ -4,37 +4,46 @@ var passengers = [ { name: "Jane Doloop", paid: true },
     { name: "John Funcall", paid: true } 
 ];
 
-function checkPaid(passengers) {
+// function that processes passesngers with other funcions 
+function processPassengers(passengers, testFunction) {
     for (var i = 0; i < passengers.length; i++) {
-        if (!passengers[i].paid) {
+        if (testFunction(passengers[i])) {
             return false;
         }
     }
     return true;
 }
 
-function checkNoFly(passengers) {
-    for (var i = 0; i < passengers.length; i++) {
-        if (onNoFlyList(passengers[i].name)) {
-            return false;
-        }
-    }
-    return true;
+/************other functions**********/
+function checkNoFlyList(passenger) {
+    return (passenger.name === "Dr. Evel");
 }
 
-function printPassengers(passengers) {
-    for (var i = 0; i < passengers.length; i++) {
-        console.log(passengers[i].name);
-        return false;
-    }
-    return true;
+function checkNotPaid(passenger) {
+    return (!passenger.paid);
 }
 
-function onNoFlyList(name) {
-    if (name === "Dr. Evel") {
-        return true;
+function printPassenger(passenger) {
+    var message = passenger.name;
+    if (passenger.paid === true) {
+        message = message + " has paid";
+    } else {
+        message = message + " has not paid";
     }
+    console.log(message);
     return false;
+}   
+/************other functions**********/
+
+// invocation
+var allCanFly = processPassengers(passengers, checkNoFlyList);
+if (!allCanFly) {
+    console.log("The plane can't take off: we have a passenger on the no-fly-list.");
 }
 
-printPassengers(passengers);
+var allPaid = processPassengers(passengers, checkNotPaid);
+if (!allPaid) {
+    console.log("The plane can't take off: not everyone has paid.");
+}
+
+processPassengers(passengers, printPassenger);
