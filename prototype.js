@@ -1,15 +1,22 @@
-function Robot(name, year, owner) {
-    this.name = name;
-    this.year = year;
-    this.owner = owner;
+String.prototype.cliche = function() {
+    var cliche = ["lock and load","touch base", "open the kimono"];
+    for (var i = 0; i < cliche.length; i++) {
+        var index = this.indexOf(cliche[i]);
+        if (index >= 0) {
+            return true;
+        }
+    }
+    return false;
+};
+
+var sentences = ["I'll send my car around to pick you up.",
+ "Let's touch base in the morning and see where we are",
+ "We don't want to open the kimono, we just want to inform them."
+];
+
+for (var i = 0; i < sentences.length; i++) {
+    var phrase = sentences[i];
+    if (phrase.cliche()) {
+        console.log("CLICHE ALERT: " + phrase);
+    }
 }
-
-var toy1 = new Robot("Toy", 2013, "Avary");
-console.log(toy1.toString()); // returns [object Object]
-
-Robot.prototype.toString = function() {
-    return this.name + " Robot belonging to " + this.owner;
-   };
-var toy2 = new Robot("Toy", 2013, "Avary");
-console.log(toy2.toString());
-console.log("Robot is: " + toy2); //toy2 is converted to string
